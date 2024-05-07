@@ -3,7 +3,6 @@
 import { useChat } from 'ai/react';
 import { useEffect, useRef, useState } from 'react';
 import PDFViewer from './component/pdfViewer';
-//test
 
 export default function Chat() {
   const { messages, input, isLoading, append, handleInputChange, handleSubmit } = useChat();
