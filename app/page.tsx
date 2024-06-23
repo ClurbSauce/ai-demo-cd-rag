@@ -18,7 +18,7 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <main className="flex h-screen flex-row items-center justify-between pb-40 bg-gradient-to-b from-[#BDE5F8] to-[#BCD2F7]">
+    <main className="flex h-screen flex-row items-center justify-between pb-10 bg-gradient-to-b from-[#BDE5F8] to-[#BCD2F7]">
       <div className="flex flex-col relative bg-[#BDE5F8] w-2/6 h-5/6 stretch rounded-lg border-white border-4 m-4 p-4">
         {/* <h1 className="text-4xl font-bold">AI Chatbot</h1> */}
         <div className='overflow-auto mb-16 w-full' ref={messagesContainerRef}>

@@ -47,7 +47,7 @@ export async function POST(req: Request, res: Response) {
     const embed = await model.embedQuery(currentMessageContent);
     let queryResponse = await index.namespace('ns1').query({
         vector: embed,
-        topK: 8,
+        topK: 5,
         includeMetadata: true,
         includeValues: true
     });

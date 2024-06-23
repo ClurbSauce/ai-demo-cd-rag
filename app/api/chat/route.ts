@@ -36,20 +36,20 @@ export async function POST(req: Request, res: Response) {
     const embed = await model.embedQuery(currentMessageContent);
     let queryResponse = await index.namespace('ns1').query({
         vector: embed,
-        topK: 4,
+        topK: 2,
         includeMetadata: true,
         includeValues: true
     });
     const concatenatedPageContent = queryResponse.matches.map((match) => match.metadata.pageContent).join(" ");
-
+    console.log(concatenatedPageContent);
 
     const response = await openai.completions.create({
         model: 'gpt-3.5-turbo-instruct',
         prompt: `You are a helpful assistant for architects and contractors. You are knowledgeable about construction techniques and an expert at reading construction documents. Answer the user's question: ${currentMessageContent} based on this content: ${concatenatedPageContent}`,
-        max_tokens: 200,
+        max_tokens: 2000,
         stream: true,
     });
-
+    
     // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response);
     // Respond with the stream

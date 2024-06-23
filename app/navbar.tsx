@@ -20,7 +20,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/text-generation">
+          <Link href="/rag">
             <p className="text-black/80">RAG</p>
           </Link>
         </li>

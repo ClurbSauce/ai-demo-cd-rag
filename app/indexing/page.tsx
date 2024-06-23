@@ -86,67 +86,75 @@ export default function Home() {
     };
 
     return (
-        <div className="flex flex-row items-center justify-center min-h-screen bg-sky-100 p-4">
-            <div className="p-5 bg-white rounded-lg shadow h-96">
+        <div className="flex flex-row items-center justify-center min-h-screen bg-sky-100 p-4 bg-gradient-to-b from-[#BDE5F8] to-[#BCD2F7]">
+            <div className="flex flex-col relative bg-[#BDE5F8] w-2/6 h-5/6 stretch rounded-lg border-white border-4 m-4 p-4">
                 <input
                     type="file"
                     multiple
                     onChange={handleFileInputChange}
                     className="mb-2"
                 />
-                <div className="overflow-auto h-80">
+                <div className="overflow-auto h-32 text-xs">
                     {files.map((file, index) => (
                         <div key={index}
                              onClick={() => selectFile(index)}
-                             className="cursor-pointer text-black p-2 hover:bg-gray-200">
+                             className="cursor-pointer bg-[#B6DDEF] text-black p-1 hover:bg-gray-200">
                             {file.name}
                         </div>
                     ))}
                 </div>
-            </div>
-            {selectedFile !== null && files[selectedFile] && (
-                <>
-                <div className="p-5 bg-white rounded-lg shadow h-full w-2/6 m-5 items-center justify-center">
-                    <div className="mt-5 items-center w100">
-                        <img src={files[selectedFile].base64} alt={`Uploaded by ${files[selectedFile].name}`} className="w-full rounded-lg shadow-lg items-center" />
-                        {/* <p className="mt-2 text-lg font-semibold text-black">
-                            {files[selectedFile].description || "No description available"}
-                        </p> */}
-                    </div>
-                </div>
-                <div className="p-5 bg-white rounded-lg shadow h-full w-2/6 m-5 items-center justify-center">
-                    <label className="block text-lg font-semibold text-black mb-1">
+                {selectedFile !== null && files[selectedFile] && (
+                    <div className="p-1 bg-[#BDE5F8] rounded-lg h-full w-6/6 m-1 items-center justify-center">
+                    <label className="block text-base font-semibold text-black mb-1">
                         Title:
                     </label>
-                    <input
+                    {/* <input
                         type="text"
                         value={files[selectedFile].title || ""}
                         onChange={(e) => handleTitleChange(e.target.value)}
-                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black"
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black text-sm mb-5"
                         placeholder="Enter title here" 
+                    /> */}
+                    <textarea
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black text-sm h-10"
+                        placeholder="Enter title here" 
+                        value={files[selectedFile].title || ""}
+                        onChange={(e) => handleTitleChange(e.target.value)}
                     />
-                    <label className="block text-lg font-semibold text-black mb-1">
+                    <label className="block text-base font-semibold text-black mb-1">
                         General Description
                     </label>
-                    <input
+                    {/* <input
                         type="text"
                         value={files[selectedFile].generalDescription || ""}
                         onChange={(e) => handleGeneralDescriptionChange(e.target.value)}
-                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black"
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black text-sm mb-5 h-24 text-wrap"
                         placeholder="Enter general description here" 
+                    /> */}
+                    <textarea
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black text-sm h-24"
+                        placeholder="Enter general description here" 
+                        value={files[selectedFile].generalDescription || ""}
+                        onChange={(e) => handleGeneralDescriptionChange(e.target.value)}
                     />
-                    <label className="block text-lg font-semibold text-black mb-1">
+                    <label className="block text-base font-semibold text-black mb-1">
                         Detailed Description:
                     </label>
-                    <input
+                    {/* <input
                         type="text"
                         value={files[selectedFile].detailDescription || ""}
                         onChange={(e) => handleDetailDescriptionChange(e.target.value)}
                         className="mt-2 w-full p-2 border border-gray-300 rounded text-black h-2/6"
                         placeholder="Enter detailed description here" 
+                    /> */}
+                    <textarea
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black text-sm h-40"
+                        placeholder="Enter detailed description here" 
+                        value={files[selectedFile].detailDescription || ""}
+                        onChange={(e) => handleDetailDescriptionChange(e.target.value)}
                     />
                     <button
-                        className="bg-blue-500 mt-5 p-2 text-white rounded shadow-xl"
+                        className=" bg-[#E87531] mt-2 p-2 text-white rounded shadow-xl"
                         disabled={isLoading}
                         onClick={async () => {
                             const response = await fetch("api/embedding", {
@@ -158,18 +166,32 @@ export default function Home() {
                             });
                             const data = await response.json();
                             setEmbeddingText(data.embeddingText);
-                            console.log(data.embeddingText);
+                            // console.log(data.embeddingText);
                             console.log('test');
                         }}
                     >
                         Generate Embedding
                     </button>
                     <textarea
-                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black h-2/6"
+                        className="mt-2 w-full p-2 border border-gray-300 rounded text-black h-32"
                         placeholder={embeddingText}
                         readOnly
                     />
                 </div>
+                )}
+                
+            </div>
+            {selectedFile !== null && files[selectedFile] && (
+                <>
+                <div className="bg-[#BCD2F7] w-4/6 h-5/6 rounded-lg border-white border-4 m-4 p-4">
+                    <div className="mt-5 items-center w100">
+                        <img src={files[selectedFile].base64} alt={`Uploaded by ${files[selectedFile].name}`} className="w-full rounded-lg shadow-lg items-center" />
+                        {/* <p className="mt-2 text-lg font-semibold text-black">
+                            {files[selectedFile].description || "No description available"}
+                        </p> */}
+                    </div>
+                </div>
+                
                 </>
             )}
         </div>
